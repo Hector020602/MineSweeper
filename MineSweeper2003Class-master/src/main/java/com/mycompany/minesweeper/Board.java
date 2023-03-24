@@ -209,32 +209,32 @@ public class Board extends javax.swing.JPanel implements InitGamer {
     private void processClick(int row, int col) {
         if (matrix[row][col] == BOMB) {
             processGameOver();
-        } else if (matrix [row][col] == 0) {
-            int numRows = Config.instance.getNumRows();
-            int numCols = Config.instance.getNumCols();
-            boolean[][] openButtons = new boolean[numRows][numCols];
-            processOpenZero(row,col);
-        }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(100);
-                    if(wins()) {
-                        processWin();
-            
-                    }
-                }catch (InterruptedException ex) {
-                    
-                
+        } else {
+            if (matrix[row][col] == 0) {
+                processOpenZero(row, col);
             }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(100);
+                        if (wins()) {
+                            processWin();
+
+                        }
+                    } catch (InterruptedException ex) {
+
+                    }
+                }
+
+            }).start();
         }
-        
-        }).start();
     }
+        
     
     private void processWin() {
-        JOptionPane.showMessageDialog(this, "You Win", "Great!!!! ", JOptionPane.OK_OPTION);
+        processGameOver();
+        JOptionPane.showMessageDialog(this, "You Win", "Great!!!! ", JOptionPane.INFORMATION_MESSAGE);
     }
     
     private Button getButtonAt(int row, int col) {
@@ -285,8 +285,6 @@ public class Board extends javax.swing.JPanel implements InitGamer {
                 }
             }
         }).start();
-        
-        
     }
     
     public ImageIcon convert(Icon icon) {
