@@ -34,14 +34,15 @@ public class MineSweeper extends javax.swing.JFrame implements ResizerInterface{
         upperPanel.setInitGamer(board);
         board.setFlagInterface(upperPanel);
         resize();
-        pack();
     }
+   
     
     @Override
     public void resize() {
         board.setPreferredSize(getBoardDimension());
         pack();
         board.initGame();
+        upperPanel.resetTimer();
         upperPanel.resetFlagRemaining();
         //upperPanel.updateLabelRemaining();
     }

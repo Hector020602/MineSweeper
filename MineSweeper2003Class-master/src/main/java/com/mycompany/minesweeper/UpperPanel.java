@@ -31,6 +31,13 @@ public class UpperPanel extends javax.swing.JPanel implements TimerInterface, Fl
         this.initGamer = initGamer;
     }
     
+    public void resetTimer() {
+        seconds = 0;
+        timer.stop();
+        updateTimerLabel(0, 0);
+        //timer.restart();
+    }
+    
     private void myInit() {
         resetFlagRemaining();
         buttonSmile.setFocusable(false);
